@@ -1,0 +1,61 @@
+<html>
+<head>
+	<title>W02: task3</title>
+</head>
+<body>
+	<script src="vec3.js"></script>
+  	<h1>Triangle Area Calculator</h1>
+  	<form id="triangleForm">
+    	<label for="x0">vec 0 (x, y, z): </label>
+    	<input type="number" id="x0" step="any">
+    	<input type="number" id="y0" step="any">
+    	<input type="number" id="z0" step="any"><br><br>
+
+    	<label for="x1">vec 1 (x, y, z): </label>
+    	<input type="number" id="x1" step="any">
+    	<input type="number" id="y1" step="any">
+    	<input type="number" id="z1" step="any"><br><br>
+
+    	<label for="x2">vec 2 (x, y, z): </label>
+    	<input type="number" id="x2" step="any">
+    	<input type="number" id="y2" step="any">
+    	<input type="number" id="z2" step="any"><br><br>
+
+    <button type="button" onclick="calculateArea()">Calculate Area</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateArea() {
+      const x0 = parseFloat(document.getElementById('x0').value);
+      const y0 = parseFloat(document.getElementById('y0').value);
+      const z0 = parseFloat(document.getElementById('z0').value);
+
+      const x1 = parseFloat(document.getElementById('x1').value);
+      const y1 = parseFloat(document.getElementById('y1').value);
+      const z1 = parseFloat(document.getElementById('z1').value);
+
+      const x2 = parseFloat(document.getElementById('x2').value);
+      const y2 = parseFloat(document.getElementById('y2').value);
+      const z2 = parseFloat(document.getElementById('z2').value);
+
+      const v0 = new Vec3(x0, y0, z0);
+      const v1 = new Vec3(x1, y1, z1);
+      const v2 = new Vec3(x2, y2, z2);
+
+      const S = calculateTriangleArea(v0, v1, v2);
+
+      document.getElementById('result').innerText = `Area of the triangle is: ${S}`;
+    }
+
+    function calculateTriangleArea(v0, v1, v2) {
+      const a = v1.sub(v0);
+      const b = v2.sub(v0);
+      const crossProduct = a.cross(b);
+      const area = crossProduct.length() / 2;
+      return area;
+    }
+  </script>
+</body>
+</html>
