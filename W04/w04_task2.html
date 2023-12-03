@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>W04: Example 12</title>
+</head>
+<body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+    d3.csv("https://github.com/nagaoka149/InfoVis2022/blob/main/W04/w04_task2_data.csv", function(data) {
+        // データの加工
+        data.forEach(function(d) {
+            d.date = d3.timeParse("%Y/%m/%d")(d.date); // 日付をパース
+            //d.USD = +d.USD; // 文字列から数値へ変換
+        });
+
+        var padding = 10;
+        var height = 20;
+        var svg = d3.select("body").append("svg");
+
+        // スケールの設定
+        var xScale = d3.scaleLinear()
+            .domain([0, d3.max(data, function(d) { return d.USD; })])
+            .range([padding, 400 - padding * 2]);
+
+        // 軸の作成
+        var xAxis = d3.axisBottom(xScale);
+
+        // 棒グラフの描画
+        svg.selectAll("rect")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x", function(d) { return padding; })
+            .attr("y", function(d, i) { return padding + i * (height + padding); })
+            .attr("width", function(d) { return xScale(d.USD) - padding; })
+            .attr("height", height)
+            .style("fill", "steelblue");
+
+        // X軸を描画
+        svg.append("g")
+            .attr("transform", "translate(0," + (data.length * (height + padding)) + ")")
+            .call(xAxis);
+    });
+</script>
+</body>
+</html>
