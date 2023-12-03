@@ -1,20 +1,25 @@
 <html>
 <head>
-    <title>W04: Example 12</title>
+    <title>W04: Task 02</title>
 </head>
 <body>
 <script src="https://d3js.org/d3.v4.min.js"></script>
+<h1 >日ドルの推移(2023年)</h1>
 <script>
-    d3.csv("https://github.com/nagaoka149/InfoVis2022/blob/main/W04/w04_task2_data.csv", function(data) {
+    d3.csv("https://nagaoka149.github.io/InfoVis2022/W04/w04_task2_data.csv", function(data) {
         // データの加工
-        data.forEach(function(d) {
-            d.date = d3.timeParse("%Y/%m/%d")(d.date); // 日付をパース
-            //d.USD = +d.USD; // 文字列から数値へ変換
-        });
+		data.forEach(function(d) {
+   			d.USD = +d.USD; // 文字列から数値へ変換
+		});	
 
         var padding = 10;
         var height = 20;
-        var svg = d3.select("body").append("svg");
+        var width = 500; // SVG要素の幅を設定
+		var svgHeight = (data.length * (height + padding)) + 2 * padding; // SVG要素の高さを計算
+
+		var svg = d3.select("body").append("svg")
+    		.attr("width", width)
+    		.attr("height", svgHeight);
 
         // スケールの設定
         var xScale = d3.scaleLinear()
@@ -35,10 +40,32 @@
             .attr("height", height)
             .style("fill", "steelblue");
 
+		// USDの数値を表示
+        svg.selectAll("text")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("x", function(d) { return xScale(d.USD) + 5; }) // 数値を表示するx座標を設定
+            .attr("y", function(d, i) { return padding + i * (height + padding) + height / 2 + 4; }) // 数値を表示するy座標を設定
+            .text(function(d) { return d.USD; }) // 表示するテキストを設定
+            .style("fill", "black") // テキストの色を設定
+            .style("text-anchor", "start"); // テキストのアンカー（表示位置）を設定
+
         // X軸を描画
         svg.append("g")
             .attr("transform", "translate(0," + (data.length * (height + padding)) + ")")
             .call(xAxis);
+
+		// 月を表示
+		svg.selectAll(".dateLabel")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("x", padding + 5) // 月を表示するx座標を設定
+        .attr("y", function(d, i) { return padding + i * (height + padding) + height / 2 + 4; }) // 月を表示するy座標を設定
+        .text(function(d) { return d.month; }) // 月のテキストを設定
+        .style("fill", "white") // テキストの色を設定
+        .style("text-anchor", "start"); // テキストのアンカー（表示位置）を設定
     });
 </script>
 </body>
