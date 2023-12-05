@@ -1,13 +1,3 @@
-/*
-var data = [
-    {label:'Apple', value:100},
-    {label:'Banana', value:200},
-    {label:'Cookie', value:50},
-    {label:'Doughnut', value:120},
-    {label:'Egg', value:80}
-];
-*/
-// 新しいデータの読み込みと描画処理
 class BarChart {
       constructor(config, data) {
           this.config = {
@@ -45,7 +35,7 @@ class BarChart {
                   .range([self.inner_height, 0]);
           } else if (self.config.orientation === 'horizontal') {
               self.xscale = d3.scaleLinear()
-                  .domain([0, d3.max(self.data, d => d.USD)])
+                  .domain([1, d3.max(self.data, d => d.USD)])
                   .range([0, self.inner_width]);
   
               self.yscale = d3.scaleBand()
@@ -94,7 +84,7 @@ class BarChart {
               .attr('text-anchor', 'middle')
               .style('font-size', '16px')
               .style('font-weight', 'bold')
-              .text('Bar Chart "JPY-USD Transition"');
+              .text('Bar Chart "JPY-USD Transition(2023)"');
   
           // Draw X-axis label
           self.svg.append('text')

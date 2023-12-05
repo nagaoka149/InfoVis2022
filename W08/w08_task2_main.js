@@ -6,7 +6,7 @@ d3.csv("https://nagaoka149.github.io/InfoVis2022/W04/w04_task2_data.csv").then(d
 
     var width = 512;
     var height = 512;
-    var margin = {top: 10, right: 10, bottom: 40, left: 60};
+    var margin = {top: 50, right: 10, bottom: 40, left: 60};
 
     var svg = d3.select('#drawing_region')
         .attr('width', width)
@@ -45,11 +45,11 @@ class LineChart {
         this.inner_height = height - margin.top - margin.bottom;
 
         this.xscale = d3.scaleLinear()
-            .domain([0, d3.max(this.data, d => d.month)])
+            .domain([1, d3.max(this.data, d => d.month)])
             .range([0, this.inner_width]);
 
         this.yscale = d3.scaleLinear()
-            .domain([0, d3.max(this.data, d => d.USD)])
+            .domain([d3.min(this.data, d => d.USD)-10, d3.max(this.data, d => d.USD)+5])
             .range([this.inner_height, 0]);
 
         this.xaxis = d3.axisBottom(this.xscale)
@@ -66,6 +66,15 @@ class LineChart {
 
         this.yaxis_group = this.chart.append('g')
             .call(this.yaxis);
+
+        this.svg.append('text')
+            .attr('x', width / 2)
+            .attr('y', margin.top / 2)
+            .attr('text-anchor', 'middle')
+            .style('font-size', '18px')
+            .style('font-weight', 'bold')
+            .text('Line Chart: JPY-USD Transition (2023)');
+            
     }
 
     update() {
@@ -87,6 +96,15 @@ class LineChart {
              .attr("cy", d => this.yscale(d.USD))
              .attr("r", 4) // 円の半径
              .attr("fill", "black"); // 円の塗りつぶし色（例えば red に設定）
+
+        // Draw chart title
+          this.svg.append('text')
+            .attr('x', self.config.width / 2)
+            .attr('y', self.config.margin.top - 10)
+            .attr('text-anchor', 'middle')
+            .style('font-size', '16px')
+            .style('font-weight', 'bold')
+            .text('Bar Chart "JPY-USD Transition(2023)"');
 
         
     }
