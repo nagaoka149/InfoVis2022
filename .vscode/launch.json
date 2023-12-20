@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
+            "url": "https://nagaoka149.github.io/InfoVis2022/W10/w10_task1_index.html",
             "webRoot": "${workspaceFolder}"
         }
     ]

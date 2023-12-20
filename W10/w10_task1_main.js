@@ -10,8 +10,7 @@ class BarChart {
 
           this.data = data;
           this.init();
-
-          // ボタンのリスナーを作成
+          /*
           d3.select('#reverse').on('click', () => {
             this.data.reverse();
             this.update();
@@ -28,6 +27,7 @@ class BarChart {
             }
             this.update();
         });
+        */
       }
   
       init() {
@@ -87,29 +87,15 @@ class BarChart {
       render() {
           let self = this;
 
-          // 既存の要素にデータをバインド
-          const rects = self.chart.selectAll("rect")
-              .data(self.data);
-  
-          // 既存の要素を更新（既存データにバインドされた要素に対する操作）
-          rects
+          self.chart.selectAll("rect")
+              .data(self.data)
+              .join("rect")
+              .transition().duration(1000)
               .attr("x", d => self.config.orientation === 'vertical' ? self.xscale(d.month) : 0)
               .attr("y", d => self.config.orientation === 'vertical' ? self.yscale(d.USD) : self.yscale(d.month))
               .attr("width", d => self.config.orientation === 'vertical' ? self.xscale.bandwidth() : self.xscale(d.USD))
               .attr("height", d => self.config.orientation === 'vertical' ? self.inner_height - self.yscale(d.USD) : self.yscale.bandwidth())
-              .style("fill", "blue"); // バーチャートの矩形に青色を設定（例）
-
-          // 新しいデータに対して新たな要素を追加
-          rects.enter()
-              .append("rect")
-              .attr("x", d => self.config.orientation === 'vertical' ? self.xscale(d.month) : 0)
-              .attr("y", d => self.config.orientation === 'vertical' ? self.yscale(d.USD) : self.yscale(d.month))
-              .attr("width", d => self.config.orientation === 'vertical' ? self.xscale.bandwidth() : self.xscale(d.USD))
-              .attr("height", d => self.config.orientation === 'vertical' ? self.inner_height - self.yscale(d.USD) : self.yscale.bandwidth())
-              .style("fill", "black"); // バーチャートの矩形に青色を設定（例）
-
-          // 不要になった要素を削除
-          rects.exit().remove();
+              .style("fill", "black"); 
 
           console.log(self.chart.selectAll("rect").data());
   
@@ -160,27 +146,29 @@ class BarChart {
           };
   
           const bar_chart = new BarChart(config, data);
+
           bar_chart.update();
 
-          d3.select('#reverse').on('click', () => {
+          d3.select('#reverse').on('click', d => {
             data.reverse();
             bar_chart.update();
             console.log("Data reversed! Bar chart updated.");
-        });
+          });
 
-        // Ascend/Descendボタンの処理
-        let ascending = false;
-        d3.select('#ascend_descend').on('click', () => {
-            if (ascending) {
-                data.sort((a, b) => d3.descending(a.USD, b.USD));
-                ascending = false;
-            } else {
-                data.sort((a, b) => d3.ascending(a.USD, b.USD));
-                ascending = true;
-            }
-            bar_chart.update();
-            console.log("Data sorted in ascending order! Bar chart updated.");
-        });
+          // Ascend/Descendボタンの処理
+          let ascending = false;
+          d3.select('#ascend_descend').on('click', d => {
+              if (ascending) {
+                  data.sort((a, b) => d3.descending(a.USD, b.USD));
+                  ascending = false;
+                  console.log("Data sorted in descending order! Bar chart updated.");
+              } else {
+                  data.sort((a, b) => d3.ascending(a.USD, b.USD));
+                  ascending = true;
+                  console.log("Data sorted in ascending order! Bar chart updated.");
+              }
+              bar_chart.update();
+          });
 
       })
       .catch(error => {
