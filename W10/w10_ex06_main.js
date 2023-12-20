@@ -6,7 +6,6 @@ update( data );
 function update(data) {
     let padding = 10;
     let height = 20;
-
     svg.selectAll("rect")
         .data(data)
         .join("rect")
