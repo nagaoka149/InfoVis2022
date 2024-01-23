@@ -1,6 +1,5 @@
-// w13_heatMap.js
+// w13_HeatMap.js
 
-// Function to create a gradient colormap from white to the specified color
 function createGradientColormap(color) {
     return [
       { offset: 0, color: 'white' },
@@ -8,14 +7,11 @@ function createGradientColormap(color) {
     ];
   }
   
-  // Function to normalize a matrix
   function normalizeMatrix(matrix) {
-    // Set diagonal elements to 0
     for (let i = 0; i < matrix.length; i++) {
       matrix[i][i] = 0;
     }
   
-    // Normalize matrix
     const maxAbsValue = Math.max(...matrix.flat().map(Math.abs));
     if (maxAbsValue !== 0) {
       for (let i = 0; i < matrix.length; i++) {
@@ -28,9 +24,7 @@ function createGradientColormap(color) {
     return matrix;
   }
   
-  // Function to merge and visualize matrices
-  function mergeAndVisualize(prec1, prec2, dfIndex) {
-    // Normalize matrices
+  function createHeatmap(prec1, prec2) {
     const prec1Normalized = normalizeMatrix([...prec1]);
     const prec2Normalized = normalizeMatrix([...prec2]);
   
@@ -60,32 +54,13 @@ function createGradientColormap(color) {
         const [r, g, b, a] = mergedColors[i][j];
         ctx.fillStyle = `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a})`;
         ctx.fillRect(j * 10, i * 10, 10, 10);
+  
+        // Display index on the heatmap
+        ctx.fillStyle = 'black';
+        ctx.font = '8px Arial';
+        ctx.fillText(i, mergedColors[i].length * 10 + 5, i * 10 + 8);
       }
-  
-      // Display index on the heatmap
-      ctx.fillStyle = 'black';
-      ctx.font = '8px Arial';
-      ctx.fillText(i, mergedColors[i].length * 10 + 5, i * 10 + 8);
     }
-  
-    // Remove the canvas element after a delay
-    setTimeout(() => {
-      document.body.removeChild(canvas);
-    }, 3000);
   }
   
-  // Example usage
-  // Replace this with the actual data loading and dfIndex value
-  const dfIndex = 0;
-  
-  // Assuming prec_2_x.csv and prec_2_y.csv are loaded asynchronously
-  // Replace this with the actual loading code
-  const prec_2_x_url = 'https://nagaoka149.github.io/InfoVis2022/W13/prec_2_x.csv';
-  const prec_2_y_url = 'https://nagaoka149.github.io/InfoVis2022/W13/prec_2_y.csv';
-  
-  Promise.all([
-    fetch(prec_2_x_url).then(response => response.text()).then(csv => csv.split('\n').map(row => row.split(',').map(Number))),
-    fetch(prec_2_y_url).then(response => response.text()).then(csv => csv.split('\n').map(row => row.split(',').map(Number)))
-  ]).then(([prec_2_x, prec_2_y]) => {
-    mergeAndVisualize(prec_2_x, prec_2_y, dfIndex);
-  });
+  export { createHeatmap };
