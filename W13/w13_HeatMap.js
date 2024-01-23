@@ -1,4 +1,4 @@
-// w13_HeatMap.js
+/// w13_HeatMap.js
 
 function createGradientColormap(color) {
     return [
@@ -32,8 +32,18 @@ function createGradientColormap(color) {
     const absPrec2 = prec2Normalized.map(row => row.map(val => Math.abs(val)));
   
     // Merge matrices and create the mergedColors matrix
-    // Code for merging matrices and creating the mergedColors matrix goes here
-    // ...
+    const mergedColors = [];
+  
+    for (let i = 0; i < absPrec1.length; i++) {
+      const mergedRow = [];
+      for (let j = 0; j < absPrec1[i].length; j++) {
+        const red = absPrec1[i][j];
+        const blue = absPrec2[i][j];
+        const alpha = Math.max(red, blue);
+        mergedRow.push([red, 0, blue, alpha]);
+      }
+      mergedColors.push(mergedRow);
+    }
   
     // Create gradient colormaps for red and blue
     const redCmap = createGradientColormap('red');
@@ -43,7 +53,7 @@ function createGradientColormap(color) {
     const canvas = document.createElement('canvas');
     canvas.width = 800;
     canvas.height = 600;
-    document.body.appendChild(canvas);
+    document.getElementById('heatmap-container').appendChild(canvas);
   
     // Get 2D rendering context
     const ctx = canvas.getContext('2d');
@@ -54,11 +64,6 @@ function createGradientColormap(color) {
         const [r, g, b, a] = mergedColors[i][j];
         ctx.fillStyle = `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a})`;
         ctx.fillRect(j * 10, i * 10, 10, 10);
-  
-        // Display index on the heatmap
-        ctx.fillStyle = 'black';
-        ctx.font = '8px Arial';
-        ctx.fillText(i, mergedColors[i].length * 10 + 5, i * 10 + 8);
       }
     }
   }

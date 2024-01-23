@@ -1,29 +1,26 @@
-<html>
-    <head>
-        <title>W13: Final Presentation</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W13: Heatmap Example</title>
     <style>
-    body {
-        font-family: system-ui;
-    }
-    #tooltip {
-        position: absolute;
-        opacity: 0;
-        background: #fff;
-        border: 1px solid #ddd;
-        font-size: 12px;
-        font-weight: 600;
-        padding: 2px 8px;
-    }
-    .tooltip-label {
-        font-weight: 500;
-        font-size: 11px;
-        color: #888;
-    }
+        body {
+            font-family: system-ui;
+        }
+        #heatmap-container {
+            display: flex;
+        }
+        canvas {
+            border: 1px solid #ddd;
+        }
     </style>
-    </head>
-    <body>
-	<svg id="drawing_region"></svg>
-	<script src="https://d3js.org/d3.v6.min.js"></script>
-	<script src="w10_task01_main.js"></script>
-    </body>
+</head>
+<body>
+    <h2>Heatmap Example</h2>
+    <div id="heatmap-container"></div>
+
+    <script src="w13_HeatMap.js" type="module"></script>
+    <script src="w13_main.js" type="module"></script>
+</body>
 </html>
