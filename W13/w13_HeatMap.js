@@ -31,10 +31,14 @@ function createGradientColormap(color) {
     const absPrec1 = prec1Normalized.map(row => row.map(val => Math.abs(val)));
     const absPrec2 = prec2Normalized.map(row => row.map(val => Math.abs(val)));
   
+    // Extract headers (indexes)
+    const headers = absPrec1[0].map((_, colIndex) => colIndex);
+    const rowIndex = 1; // Skip the first row (headers)
+  
     // Merge matrices and create the mergedColors matrix
     const mergedColors = [];
   
-    for (let i = 0; i < absPrec1.length; i++) {
+    for (let i = rowIndex; i < absPrec1.length; i++) {
       const mergedRow = [];
       for (let j = 0; j < absPrec1[i].length; j++) {
         const red = absPrec1[i][j];
@@ -51,7 +55,7 @@ function createGradientColormap(color) {
   
     // Create a Canvas element
     const canvas = document.createElement('canvas');
-    canvas.width = 800;
+    canvas.width = 600;
     canvas.height = 600;
     document.getElementById('heatmap-container').appendChild(canvas);
   
