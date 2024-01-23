@@ -12,3 +12,12 @@ Promise.all([
   ]).then(([prec_2_x, prec_2_y]) => {
     createHeatmap(prec_2_x, prec_2_y);
   });
+
+  const dotMapUrl = 'https://nagaoka149.github.io/InfoVis2022/W13/merged_gps_1218_0800_1200_50.csv';
+
+fetch(dotMapUrl)
+  .then(response => response.text())
+  .then(csv => csv.split('\n').map(row => row.split(',')))
+  .then(data => {
+    createDotMap(data);
+  });
