@@ -11,14 +11,28 @@ const width = 400;
 const height = 200;
 
 // SVG要素を作成
-const svg = d3.select("#dotmap-container")
-  .append("svg")
-  .attr("width", width)
-  .attr("height", height);
+const svg = d3.select("#dotmap-container").append("svg").attr("width", width).attr("height", height);
 
 // margin の定義
 const margin = { top: 20, right: 20, bottom: 20, left: 20 };
-  
+
+// サンプルコード：x軸およびy軸のスケールを設定
+const xValues = dotMapData.flat(2).map(point => point[0]);
+const yValues = dotMapData.flat(2).map(point => point[1]);
+
+const xScale = d3.scaleLinear().domain([d3.min(xValues), d3.max(xValues)]).range([margin.left, width - margin.right]);
+
+const yScale = d3.scaleLinear().domain([d3.min(yValues), d3.max(yValues)]).range([height - margin.bottom, margin.top]);
+
+// x軸の描画
+svg
+  .append("g")
+  .attr("class", "x-axis")
+  .attr("transform", `translate(0, ${height - margin.bottom})`)
+  .call(d3.axisBottom(xScale));
+
+// y軸の描画
+svg.append("g").attr("class", "y-axis").attr("transform", `translate(${margin.left}, 0)`).call(d3.axisLeft(yScale));
 
 // 初期の時刻を設定
 let currentTime = 0;
@@ -26,19 +40,19 @@ let currentTime = 0;
 // DotMapの描画関数
 function drawDotMap(data) {
   // 円を描画
-  const circles = svg.selectAll("circle")
-    .data(data)
-    .join("circle")
-    .attr("cx", d => d[0]) // x座標
-    .attr("cy", d => d[1]) // y座標
+  const circles = svg.selectAll("circle").data(data).join("circle");
+
+  circles
+    .attr("cx", d => xScale(d[0])) // x座標
+    .attr("cy", d => yScale(d[1])) // y座標
     .attr("r", 5) // 円の半径
     .attr("fill", "steelblue"); // 円の塗りつぶし色
 
   // ツールチップの表示
   circles.on("mouseover", (event, d) => {
     // ツールチップの位置を設定
-    const xPosition = d[0] + 10;
-    const yPosition = d[1] - 10;
+    const xPosition = xScale(d[0]) + 10;
+    const yPosition = yScale(d[1]) - 10;
 
     // ツールチップを表示
     d3.select("#tooltip")
@@ -54,30 +68,6 @@ function drawDotMap(data) {
   circles.on("mouseout", () => {
     d3.select("#tooltip").classed("hidden", true);
   });
-
-// サンプルコード：x軸およびy軸のスケールを設定
-const xValues = dotMapData[currentTime].map(point => point[0]);
-const yValues = dotMapData[currentTime].map(point => point[1]);
-
-const xScale = d3.scaleLinear()
-    .domain([d3.min(xValues), d3.max(xValues)])
-    .range([margin.left, width - margin.right]);
-
-const yScale = d3.scaleLinear()
-    .domain([d3.min(yValues), d3.max(yValues)])
-    .range([height - margin.bottom, margin.top]);
-
-// x軸の描画
-svg.append("g")
-    .attr("class", "x-axis")
-    .attr("transform", `translate(0, ${height - margin.bottom})`)
-    .call(d3.axisBottom(xScale));
-
-// y軸の描画
-svg.append("g")
-    .attr("class", "y-axis")
-    .attr("transform", `translate(${margin.left}, 0)`)
-    .call(d3.axisLeft(yScale));
 }
 
 // 初回描画
@@ -111,7 +101,7 @@ document.getElementById("downButton").addEventListener("click", onDownButtonClic
 // ツールチップを格納するdiv要素を作成
 d3.select("#dotmap-container")
   .append("div")
-  .attr("id", "tooltip")  // ここを修正
+  .attr("id", "tooltip")
   .attr("class", "hidden")
   .append("p")
   .attr("id", "value");
