@@ -25,6 +25,10 @@ let currentTime = 0;
 
 // DotMapの描画関数
 function drawDotMap(data) {
+  // 軸を削除
+  svg.selectAll(".x-axis").remove();
+  svg.selectAll(".y-axis").remove();
+  
   // 円を描画
   const circles = svg.selectAll("circle")
     .data(data)
