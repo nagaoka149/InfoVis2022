@@ -79,5 +79,24 @@ function createHeatmap(prec1, prec2) {
     }
 }
 
-// Export the function for external use
-export { createHeatmap };
+// Example usage
+// Replace this with your actual matrices
+const prec1 = [
+    [0, 0.21783335, 0, 0, 0, 0],
+    [0.21783335, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0.363340508],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0.363340508, 0, 0]
+];
+
+const prec2 = [
+    [0, 0.214901203, 0, 0, 0.064614046, 0],
+    [0.214901203, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0.064614046, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0]
+];
+
+createHeatmap(prec1, prec2);
