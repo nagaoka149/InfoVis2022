@@ -16,6 +16,32 @@ const svg = d3.select("#dotMapContainer")
   .attr("width", width)
   .attr("height", height);
 
+  // SVG領域を黒で塗る
+svg.append("rect")
+.attr("width", width)
+.attr("height", height)
+.attr("fill", "black");
+
+// タイトルを追加
+svg.append("text")
+.attr("x", width / 2)
+.attr("y", margin.top)
+.attr("text-anchor", "middle")
+.attr("dominant-baseline", "hanging")
+.attr("fill", "white")
+.style("font-size", "18px")
+.text("Dot Map Area");
+
+// メッセージを追加
+svg.append("text")
+.attr("x", width / 2)
+.attr("y", height / 2)
+.attr("text-anchor", "middle")
+.attr("dominant-baseline", "middle")
+.attr("fill", "white")
+.style("font-size", "24px")
+.text("Dot Map will be drawn here");
+
 // 初期の時刻を設定
 let currentTime = 0;
 
