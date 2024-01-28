@@ -63,8 +63,8 @@ function createHeatmap(prec1, prec2) {
 
     // Create a Canvas element
     const canvas = document.createElement('canvas');
-    canvas.width = 600;
-    canvas.height = 600;
+    canvas.width = 200;
+    canvas.height = 200;
     document.getElementById('heatmap-container').appendChild(canvas);
 
     // Get 2D rendering context
