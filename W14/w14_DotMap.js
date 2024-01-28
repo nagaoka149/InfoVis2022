@@ -1,5 +1,4 @@
 // w14_DotMap.js
-// w14_DotMap.js
 const dotMapData = [
     [1, 10, 10, 25, 20, 30, 35, 10, 40, 60, 20, 50, 35],
     [2, 0, 10, 25, 25, 30, 35, 10, 40, 50, 25, 45, 40],
@@ -50,6 +49,8 @@ const dotMapData = [
     // Implement this function based on your UI to get the current time
     // For example, if you have a slider with an ID "timeSlider", you can use:
     // return +d3.select("#timeSlider").property("value");
+    // Here, assuming a simple slider with ID "timeSlider" ranging from 0 to 2
+    return +d3.select("#timeSlider").property("value");
   }
   
   // Call the function to create the dot map initially
