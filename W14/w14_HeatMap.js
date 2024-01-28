@@ -7,7 +7,6 @@ function createGradientColormap(color) {
         { offset: 1, color: color }
     ];
 }
-
 // Function to normalize a matrix
 function normalizeMatrix(matrix) {
     // Set diagonal elements to 0
@@ -81,26 +80,29 @@ function createHeatmap(prec1, prec2) {
     }
 }
 
+
+
 // Example usage
 // Replace this with your actual matrices
 const prec1 = [
     [0, 0, 0, 0, 0, 0],
-    [0, 0.21783335, 0, 0, 0, 0],
-    [0.21783335, 0, 0, 0, 0, 0],
+    [0, 0.5, 0.8, 0, 0, 0],
+    [0.5, 0, 0, 0, 0, 0],
+    [0.8, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0.4],
     [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0.363340508],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0.363340508, 0, 0]
+    [0, 0, 0, 0.4, 0, 0]
 ];
 
 const prec2 = [
     [0, 0, 0, 0, 0, 0],
-    [0, 0.214901203, 0, 0, 0.064614046, 0],
-    [0.214901203, 0, 0, 0, 0, 0],
+    [0, 0.6, 1, 0, 0.2, 0],
+    [0.6, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0.064614046, 0, 0, 0, 0],
+    [0, 0.2, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0]
 ];
 
 createHeatmap(prec1, prec2);
+
