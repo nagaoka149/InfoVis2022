@@ -2,51 +2,88 @@
 
 // グローバル変数
 let dotMapData = [
-    [1, 10, 10, 25, 20, 30, 35, 10, 40, 60, 20, 50, 35],
-    [2, 0, 10, 25, 25, 30, 35, 10, 40, 50, 25, 45, 40],
-    [3, 0, 0, 20, 20, 30, 35, 10, 40, 40, 25, 40, 40],
+    [[10, 10], [25, 20], [30, 35], [10, 40], [60, 20], [50, 35], ],
+    [[0, 10], [25, 25], [30, 35], [10, 40], [50, 25], [45, 40], ],
+    [[0, 0], [20, 20], [30, 35], [10, 40], [40, 25], [40, 40], ],
   ];
-  let currentTimeIndex = 0;
-  
-  function updateDotMap() {
-    // ドットマップを更新するコードをここに追加
-  
-    // 例: ドットを描画する
-    const svg = d3.select("#dotMapSvg");
-  
-    const timeIndex = currentTimeIndex % dotMapData.length;
-  
-    const dots = svg.selectAll("circle").data(dotMapData[timeIndex].slice(1));
-  
-    dots
-      .enter()
-      .append("circle")
-      .attr("cx", (d, i) => (i + 1) * 50) // 適切な x 座標を計算する
-      .attr("cy", d => d * 5) // 適切な y 座標を計算する
-      .attr("r", 5)
-      .attr("fill", "red");
-  
-    dots.exit().remove();
-  }
-  
-  // up ボタンをクリックしたときの処理
-  function onUpButtonClick() {
-    currentTimeIndex += 1;
-    updateDotMap();
-  }
-  
-  // down ボタンをクリックしたときの処理
-  function onDownButtonClick() {
-    currentTimeIndex -= 1;
-    if (currentTimeIndex < 0) {
-      currentTimeIndex = dotMapData.length - 1;
-    }
-    updateDotMap();
-  }
-  
-  // 初回描画
-  updateDotMap();
-  
-  // ボタンにイベントリスナーを追加
-  document.getElementById("upButton").addEventListener("click", onUpButtonClick);
-  document.getElementById("downButton").addEventListener("click", onDownButtonClick);
+// SVGの幅と高さを設定
+const width = 400;
+const height = 200;
+
+// SVG要素を作成
+const svg = d3.select("#dotMapContainer")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
+
+// 初期の時刻を設定
+let currentTime = 0;
+
+// DotMapの描画関数
+function drawDotMap(data) {
+  // 円を描画
+  const circles = svg.selectAll("circle")
+    .data(data)
+    .join("circle")
+    .attr("cx", d => d[0]) // x座標
+    .attr("cy", d => d[1]) // y座標
+    .attr("r", 5) // 円の半径
+    .attr("fill", "steelblue"); // 円の塗りつぶし色
+
+  // ツールチップの表示
+  circles.on("mouseover", (event, d) => {
+    // ツールチップの位置を設定
+    const xPosition = d[0] + 10;
+    const yPosition = d[1] - 10;
+
+    // ツールチップを表示
+    d3.select("#tooltip")
+      .style("left", xPosition + "px")
+      .style("top", yPosition + "px")
+      .select("#value")
+      .text(`(${d[0]}, ${d[1]})`);
+
+    d3.select("#tooltip").classed("hidden", false);
+  });
+
+  // ツールチップの非表示
+  circles.on("mouseout", () => {
+    d3.select("#tooltip").classed("hidden", true);
+  });
+}
+
+// 初回描画
+drawDotMap(dotMapData[currentTime]);
+
+// 時刻変更ボタンのクリックイベント
+d3.select("#nextTimeButton").on("click", () => {
+  currentTime = (currentTime + 1) % dotMapData.length; // 次の時刻へ
+  drawDotMap(dotMapData[currentTime]); // DotMapを描画
+});
+
+// down ボタンをクリックしたときの処理
+function onDownButtonClick() {
+  currentTime = (currentTime - 1 + dotMapData.length) % dotMapData.length; // 前の時刻へ
+  drawDotMap(dotMapData[currentTime]); // DotMapを描画
+}
+
+// up ボタンをクリックしたときの処理
+function onUpButtonClick() {
+  currentTime = (currentTime + 1) % dotMapData.length; // 次の時刻へ
+  drawDotMap(dotMapData[currentTime]); // DotMapを描画
+}
+
+// 初回描画
+drawDotMap(dotMapData[currentTime]);
+
+// ボタンにイベントリスナーを追加
+document.getElementById("upButton").addEventListener("click", onUpButtonClick);
+document.getElementById("downButton").addEventListener("click", onDownButtonClick);
+
+// ツールチップを格納するdiv要素を作成
+d3.select("#dotMapContainer")
+  .append("div")
+  .attr("id", "tooltip")
+  .attr("class", "hidden")
+  .append("p")
+  .attr("id", "value");
