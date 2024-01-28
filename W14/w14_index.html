@@ -15,5 +15,11 @@
     <!--<script type="module" src="w14_HeatMap.js"></script>-->
     <script type="module" src="w14_DotMap.js"></script> 
     <!--<script src="w14_main.js"></script>-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("upButton").addEventListener("click", onUpButtonClick);
+            document.getElementById("downButton").addEventListener("click", onDownButtonClick);
+        });
+    </script>
 </body>
 </html>
