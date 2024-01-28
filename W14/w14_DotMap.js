@@ -12,7 +12,7 @@ const height = 400;
 
 // SVG要素を作成
 const svg = d3.select("#dotmap-container")
-  .append("svg")
+  .select("svg")
   .attr("width", width)
   .attr("height", height);
   
@@ -107,8 +107,7 @@ document.getElementById("downButton").addEventListener("click", onDownButtonClic
 
 // ツールチップを格納するdiv要素を作成
 d3.select("#dotmap-container")
-  .append("div")
-  .attr("id", "tooltip")
+  .select("#tooltip")
   .attr("class", "hidden")
   .append("p")
   .attr("id", "value");
