@@ -7,14 +7,17 @@ let dotMapData = [
     [[0, 0], [20, 20], [30, 35], [10, 40], [40, 25], [40, 40], ],
   ];
 // SVGの幅と高さを設定
-const width = 600;
-const height = 400;
+const width = 400;
+const height = 200;
 
 // SVG要素を作成
 const svg = d3.select("#dotmap-container")
-  .select("svg")
+  .append("svg")
   .attr("width", width)
   .attr("height", height);
+
+// margin の定義
+const margin = { top: 20, right: 20, bottom: 20, left: 20 };
   
 
 // 初期の時刻を設定
