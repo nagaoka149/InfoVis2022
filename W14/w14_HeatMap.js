@@ -82,6 +82,7 @@ function createHeatmap(prec1, prec2) {
 // Example usage
 // Replace this with your actual matrices
 const prec1 = [
+    [1, 2, 3, 4, 5, 6],
     [0, 0.21783335, 0, 0, 0, 0],
     [0.21783335, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
@@ -91,6 +92,7 @@ const prec1 = [
 ];
 
 const prec2 = [
+    [1, 2, 3, 4, 5, 6],
     [0, 0.214901203, 0, 0, 0.064614046, 0],
     [0.214901203, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
