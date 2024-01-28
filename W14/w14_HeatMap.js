@@ -1,17 +1,21 @@
-// w13_HeatMap.js
+// w14_HeatMap.js
 
-export function createGradientColormap(color) {
+// Function to create a gradient colormap
+function createGradientColormap(color) {
     return [
         { offset: 0, color: 'white' },
         { offset: 1, color: color }
     ];
 }
 
-export function normalizeMatrix(matrix) {
+// Function to normalize a matrix
+function normalizeMatrix(matrix) {
+    // Set diagonal elements to 0
     for (let i = 0; i < matrix.length; i++) {
         matrix[i][i] = 0;
     }
 
+    // Normalize matrix
     const maxAbsValue = Math.max(...matrix.flat().map(Math.abs));
     if (maxAbsValue !== 0) {
         for (let i = 0; i < matrix.length; i++) {
@@ -24,10 +28,13 @@ export function normalizeMatrix(matrix) {
     return matrix;
 }
 
-export function createHeatmap(prec1, prec2) {
+// Function to create a HeatMap
+function createHeatmap(prec1, prec2) {
+    // Normalize matrices
     const prec1Normalized = normalizeMatrix([...prec1]);
     const prec2Normalized = normalizeMatrix([...prec2]);
 
+    // Calculate the absolute values
     const absPrec1 = prec1Normalized.map(row => row.map(val => Math.abs(val)));
     const absPrec2 = prec2Normalized.map(row => row.map(val => Math.abs(val)));
 
@@ -71,3 +78,6 @@ export function createHeatmap(prec1, prec2) {
         }
     }
 }
+
+// Export the function for external use
+export { createHeatmap };
