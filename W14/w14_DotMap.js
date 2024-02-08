@@ -17,7 +17,7 @@ const svg = d3.select("#dotmap-container")
   .attr("height", height);
 
 // margin の定義
-const margin = { top: 20, right: 20, bottom: 20, left: 30 };
+const margin = { top: 20, right: 20, bottom: 20, left: 20 };
 
 const allXValues = dotMapData.flat().map(d => d[0]);
 const allYValues = dotMapData.flat().map(d => d[1]);
@@ -25,7 +25,7 @@ const xScale = d3.scaleLinear().domain([d3.min(allXValues), d3.max(allXValues)])
 const yScale = d3.scaleLinear().domain([d3.min(allYValues), d3.max(allYValues)]).range([height - margin.bottom, margin.top]);
 
 // x軸の描画
-// 軸の描画
+// y軸の描画
   svg.append("g").attr("class", "x-axis").attr("transform", `translate(0, ${height - margin.bottom})`).call(d3.axisBottom(xScale));
   svg.append("g").attr("class", "y-axis").attr("transform", `translate(${margin.left}, 0)`).call(d3.axisLeft(yScale));
 
@@ -42,9 +42,9 @@ function drawDotMap(data) {
     const circles = svg.selectAll("circle")
         .data(data)
         .join("circle")
-        .attr("cx", d => xScale(d[0])) 
-        .attr("cy", d => yScale(d[1])) 
-        .attr("r", 100)
+        .attr("cx", d => xScale(d[0])) // xScaleを使用
+        .attr("cy", d => yScale(d[1])) // yScaleを使用
+        .attr("r", 5)
         .attr("fill", "steelblue");
 
   // ツールチップの表示
