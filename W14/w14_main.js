@@ -38,3 +38,8 @@ Promise.all([
     // Draw HeatMap
     createHeatmap(precXData, precYData);
 });
+
+function updateDotMapBasedOnHeatmap(selectedCell) {
+    // Logic to find and update the corresponding dot in the dotmap
+    // This might involve changing the dot's color and updating the heatmap to highlight the selected cell
+}

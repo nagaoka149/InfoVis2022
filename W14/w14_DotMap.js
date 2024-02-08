@@ -39,6 +39,8 @@ const yScale = d3.scaleLinear().domain([d3.min(allYValues), d3.max(allYValues)])
 // 初期の時刻を設定
 let currentTime = 0;
 
+let selectedCell = null;  
+
 // DotMapの描画関数
 function drawDotMap(data) {
   // 軸を削除
@@ -52,7 +54,14 @@ function drawDotMap(data) {
         .attr("cx", d => xScale(d[0])) // xScaleを使用
         .attr("cy", d => yScale(d[1])) // yScaleを使用
         .attr("r", 5)
-        .attr("fill", "steelblue");
+        //.attr("fill", "steelblue");
+        .attr("fill", (d, i) => {
+            if (selectedCell && selectedCell.row === Math.floor(i / 6) && selectedCell.column === i % 6) {
+              return "red";  // Change to red if the dot corresponds to the selected cell
+            }
+            return "steelblue";  // Default color
+        });
+        
 
   // ツールチップの表示
   circles.on("mouseover", (event, d) => {
