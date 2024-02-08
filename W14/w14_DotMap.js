@@ -24,6 +24,13 @@ const allYValues = dotMapData.flat().map(d => d[1]);
 const xScale = d3.scaleLinear().domain([d3.min(allXValues), d3.max(allXValues)]).range([margin.left, width - margin.right]);
 const yScale = d3.scaleLinear().domain([d3.min(allYValues), d3.max(allYValues)]).range([height - margin.bottom, margin.top]);
 
+const timeText = svg.append("text")
+    .attr("class", "current-time")
+    .attr("x", margin.left)
+    .attr("y", margin.top - 10) // 上部マージンより少し上に配置
+    .style("font-size", "16px")
+    .text(`Current Time: ${currentTime}`);
+
 // x軸の描画
 // y軸の描画
   svg.append("g").attr("class", "x-axis").attr("transform", `translate(0, ${height - margin.bottom})`).call(d3.axisBottom(xScale));
@@ -68,21 +75,8 @@ function drawDotMap(data) {
     d3.select("#tooltip").classed("hidden", true);
   });
 
-// サンプルコード：x軸およびy軸のスケールを設定
-const xValues = dotMapData[currentTime].map(point => point[0]);
-const yValues = dotMapData[currentTime].map(point => point[1]);
-
-// x軸の描画
-svg.append("g")
-    .attr("class", "x-axis")
-    .attr("transform", `translate(0, ${height - margin.bottom})`)
-    .call(d3.axisBottom(xScale));
-
-// y軸の描画
-svg.append("g")
-    .attr("class", "y-axis")
-    .attr("transform", `translate(${margin.left}, 0)`)
-    .call(d3.axisLeft(yScale));
+  // 現在の時間を表示するテキストを更新
+  timeText.text(`Current Time: ${currentTime}`);
 }
 
 // 初回描画
