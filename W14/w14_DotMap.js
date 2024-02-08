@@ -24,12 +24,12 @@ const allYValues = dotMapData.flat().map(d => d[1]);
 const xScale = d3.scaleLinear().domain([d3.min(allXValues), d3.max(allXValues)]).range([margin.left, width - margin.right]);
 const yScale = d3.scaleLinear().domain([d3.min(allYValues), d3.max(allYValues)]).range([height - margin.bottom, margin.top]);
 
-const timeText = svg.append("text")
-    .attr("class", "current-time")
-    .attr("x", margin.left)
-    .attr("y", margin.top - 10) // 上部マージンより少し上に配置
-    .style("font-size", "16px")
-    .text(`Current Time: ${currentTime}`);
+//const timeText = svg.append("text")
+//    .attr("class", "current-time")
+//    .attr("x", margin.left)
+//    .attr("y", margin.top - 10) // 上部マージンより少し上に配置
+//    .style("font-size", "10px")
+//    .text(`Current Time: ${currentTime}`);
 
 // x軸の描画
 // y軸の描画
