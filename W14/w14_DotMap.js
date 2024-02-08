@@ -17,7 +17,7 @@ const svg = d3.select("#dotmap-container")
   .attr("height", height);
 
 // margin の定義
-const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+const margin = { top: 20, right: 20, bottom: 20, left: 25 };
 
 const allXValues = dotMapData.flat().map(d => d[0]);
 const allYValues = dotMapData.flat().map(d => d[1]);
@@ -71,14 +71,6 @@ function drawDotMap(data) {
 // サンプルコード：x軸およびy軸のスケールを設定
 const xValues = dotMapData[currentTime].map(point => point[0]);
 const yValues = dotMapData[currentTime].map(point => point[1]);
-
-const xScale = d3.scaleLinear()
-    .domain([d3.min(xValues), d3.max(xValues)])
-    .range([margin.left, width - margin.right]);
-
-const yScale = d3.scaleLinear()
-    .domain([d3.min(yValues), d3.max(yValues)])
-    .range([height - margin.bottom, margin.top]);
 
 // x軸の描画
 svg.append("g")
