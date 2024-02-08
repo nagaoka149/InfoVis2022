@@ -18,6 +18,24 @@ const svg = d3.select("#dotmap-container")
 
 // margin の定義
 const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+
+let xMin = d3.min(dotMapData, d => d3.min(d, point => point.x));
+let xMax = d3.max(dotMapData, d => d3.max(d, point => point.x));
+let yMin = d3.min(dotMapData, d => d3.min(d, point => point.y));
+let yMax = d3.max(dotMapData, d => d3.max(d, point => point.y));
+
+let xScale = d3.scaleLinear().domain([xMin, xMax]).range([margin.left, width - margin.right]);
+let yScale = d3.scaleLinear().domain([yMin, yMax]).range([height - margin.bottom, margin.top]);
+
+// x軸の描画
+svg
+  .append("g")
+  .attr("class", "x-axis")
+  .attr("transform", `translate(0, ${height - margin.bottom})`)
+  .call(d3.axisBottom(xScale));
+
+// y軸の描画
+svg.append("g").attr("class", "y-axis").attr("transform", `translate(${margin.left}, 0)`).call(d3.axisLeft(yScale));
   
 
 // 初期の時刻を設定
@@ -28,7 +46,7 @@ function drawDotMap(data) {
   // 軸を削除
   svg.selectAll(".x-axis").remove();
   svg.selectAll(".y-axis").remove();
-  
+
   // 円を描画
   const circles = svg.selectAll("circle")
     .data(data)
