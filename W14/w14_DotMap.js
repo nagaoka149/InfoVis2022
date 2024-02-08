@@ -76,7 +76,7 @@ function drawDotMap(data) {
   });
 
   // 現在の時間を表示するテキストを更新
-  timeText.text(`Current Time: ${currentTime}`);
+  //timeText.text(`Current Time: ${currentTime}`);
 
 // サンプルコード：x軸およびy軸のスケールを設定
 const xValues = dotMapData[currentTime].map(point => point[0]);
