@@ -25,15 +25,9 @@ const xScale = d3.scaleLinear().domain([d3.min(allXValues), d3.max(allXValues)])
 const yScale = d3.scaleLinear().domain([d3.min(allYValues), d3.max(allYValues)]).range([height - margin.bottom, margin.top]);
 
 // x軸の描画
-svg
-  .append("g")
-  .attr("class", "x-axis")
-  .attr("transform", `translate(0, ${height - margin.bottom})`)
-  .call(d3.axisBottom(xScale));
-
-// y軸の描画
-svg.append("g").attr("class", "y-axis").attr("transform", `translate(${margin.left}, 0)`).call(d3.axisLeft(yScale));
-  
+// 軸の描画
+  svg.append("g").attr("class", "x-axis").attr("transform", `translate(0, ${height - margin.bottom})`).call(d3.axisBottom(xScale));
+  svg.append("g").attr("class", "y-axis").attr("transform", `translate(${margin.left}, 0)`).call(d3.axisLeft(yScale));
 
 // 初期の時刻を設定
 let currentTime = 0;
@@ -41,19 +35,17 @@ let currentTime = 0;
 // DotMapの描画関数
 function drawDotMap(data) {
   // 軸を削除
-  svg.selectAll("*").remove();
-
-  // 軸の描画
-  svg.append("g").attr("class", "x-axis").attr("transform", `translate(0, ${height - margin.bottom})`).call(d3.axisBottom(xScale));
-  svg.append("g").attr("class", "y-axis").attr("transform", `translate(${margin.left}, 0)`).call(d3.axisLeft(yScale));
+  // svg.selectAll("*").remove();
 
   // 円を描画
   // データ点の描画
-  svg.selectAll("circle").data(data).enter().append("circle")
-    .attr("cx", d => xScale(d[0])) // x座標のスケール適用
-    .attr("cy", d => yScale(d[1])) // y座標のスケール適用
-    .attr("r", 5)
-    .attr("fill", "steelblue");
+    const circles = svg.selectAll("circle")
+        .data(data)
+        .join("circle")
+        .attr("cx", d => xScale(d[0])) // xScaleを使用
+        .attr("cy", d => yScale(d[1])) // yScaleを使用
+        .attr("r", 5)
+        .attr("fill", "steelblue");
 
   // ツールチップの表示
   circles.on("mouseover", (event, d) => {
