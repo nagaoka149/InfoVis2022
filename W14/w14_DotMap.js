@@ -19,13 +19,10 @@ const svg = d3.select("#dotmap-container")
 // margin の定義
 const margin = { top: 20, right: 20, bottom: 20, left: 20 };
 
-let xMin = d3.min(dotMapData, d => d3.min(d, point => point.x));
-let xMax = d3.max(dotMapData, d => d3.max(d, point => point.x));
-let yMin = d3.min(dotMapData, d => d3.min(d, point => point.y));
-let yMax = d3.max(dotMapData, d => d3.max(d, point => point.y));
-
-let xScale = d3.scaleLinear().domain([xMin, xMax]).range([margin.left, width - margin.right]);
-let yScale = d3.scaleLinear().domain([yMin, yMax]).range([height - margin.bottom, margin.top]);
+const allXValues = dotMapData.flat().map(d => d[0]);
+const allYValues = dotMapData.flat().map(d => d[1]);
+const xScale = d3.scaleLinear().domain([d3.min(allXValues), d3.max(allXValues)]).range([margin.left, width - margin.right]);
+const yScale = d3.scaleLinear().domain([d3.min(allYValues), d3.max(allYValues)]).range([height - margin.bottom, margin.top]);
 
 // x軸の描画
 svg
@@ -44,17 +41,19 @@ let currentTime = 0;
 // DotMapの描画関数
 function drawDotMap(data) {
   // 軸を削除
-  svg.selectAll(".x-axis").remove();
-  svg.selectAll(".y-axis").remove();
+  svg.selectAll("*").remove();
+
+  // 軸の描画
+  svg.append("g").attr("class", "x-axis").attr("transform", `translate(0, ${height - margin.bottom})`).call(d3.axisBottom(xScale));
+  svg.append("g").attr("class", "y-axis").attr("transform", `translate(${margin.left}, 0)`).call(d3.axisLeft(yScale));
 
   // 円を描画
-  const circles = svg.selectAll("circle")
-    .data(data)
-    .join("circle")
-    .attr("cx", d => d[0]) // x座標
-    .attr("cy", d => d[1]) // y座標
-    .attr("r", 5) // 円の半径
-    .attr("fill", "steelblue"); // 円の塗りつぶし色
+  // データ点の描画
+  svg.selectAll("circle").data(data).enter().append("circle")
+    .attr("cx", d => xScale(d[0])) // x座標のスケール適用
+    .attr("cy", d => yScale(d[1])) // y座標のスケール適用
+    .attr("r", 5)
+    .attr("fill", "steelblue");
 
   // ツールチップの表示
   circles.on("mouseover", (event, d) => {
