@@ -77,6 +77,22 @@ function drawDotMap(data) {
 
   // 現在の時間を表示するテキストを更新
   timeText.text(`Current Time: ${currentTime}`);
+
+// サンプルコード：x軸およびy軸のスケールを設定
+const xValues = dotMapData[currentTime].map(point => point[0]);
+const yValues = dotMapData[currentTime].map(point => point[1]);
+
+// x軸の描画
+svg.append("g")
+    .attr("class", "x-axis")
+    .attr("transform", `translate(0, ${height - margin.bottom})`)
+    .call(d3.axisBottom(xScale));
+
+// y軸の描画
+svg.append("g")
+    .attr("class", "y-axis")
+    .attr("transform", `translate(${margin.left}, 0)`)
+    .call(d3.axisLeft(yScale));
 }
 
 // 初回描画
