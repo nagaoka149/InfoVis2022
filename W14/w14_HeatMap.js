@@ -77,9 +77,21 @@ function createHeatmap(prec1, prec2) {
         for (let j = 0; j < mergedColors[i].length; j++) {
             const [r, g, b, a] = mergedColors[i][j];
             ctx.fillStyle = `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a})`;
-            ctx.fillRect(j * 10, i * 10, 10, 10);
+            ctx.fillRect(j * 10, i * 10, 10, 10);// ...セルを描画する既存のコード...
+            if (i === selectedCell.row && j === selectedCell.column) {
+                ctx.strokeStyle = "black";
+                ctx.lineWidth = 2;
+                ctx.strokeRect(j * 10, i * 10, 10, 10);
+            }
         }
     }
+    //for (let i = 0; i < mergedColors.length; i++) {
+    //    for (let j = 0; j < mergedColors[i].length; j++) {
+    //        const [r, g, b, a] = mergedColors[i][j];
+    //        ctx.fillStyle = `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a})`;
+    //        ctx.fillRect(j * 10, i * 10, 10, 10);
+    //    }
+    //}
 
     // セル描画部分にクリックイベントを追加
     ctx.fillStyle = `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a})`;
@@ -129,15 +141,15 @@ const prec2 = [
     [0, 0, 0.9, 0, 0, 0]
 ];
 
-//document.getElementById('idUpButton').addEventListener('click', function() {
-//    selectedCell = Math.max(0, selectedCell - 1);  // Ensure selectedCell doesn't go below 0
-//    HeatMap();  // Assuming this is the function that draws the heatmap
-//});
+document.getElementById('idUpButton').addEventListener('click', function() {
+    selectedCell = Math.max(0, selectedCell - 1);  // Ensure selectedCell doesn't go below 0
+    drawHeatMap();  // Assuming this is the function that draws the heatmap
+});
 
-//document.getElementById('idDownButton').addEventListener('click', function() {
-//    selectedCell = selectedCell + 1;  // Increment selectedCell
-    // You might want to add logic to ensure selectedCell doesn't exceed the number of cells
-//    drawHeatMap();  // Redraw the heatmap
-//});
+ocument.getElementById('idDownButton').addEventListener('click', function() {
+    selectedCell = selectedCell + 1;  // Increment selectedCell
+     //You might want to add logic to ensure selectedCell doesn't exceed the number of cells
+    drawHeatMap();  // Redraw the heatmap
+});
 
 createHeatmap(prec1, prec2);
