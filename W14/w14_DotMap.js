@@ -80,7 +80,7 @@ function drawDotMap(data) {
       .style("left", xPosition + "px")
       .style("top", yPosition + "px")
       .select("#value")
-      .text(`${i}, (${d[0]}, ${d[1]})`);
+      .text(`${i+1}, (${d[0]}, ${d[1]})`);
 
     d3.select("#tooltip").classed("hidden", false);
   });
