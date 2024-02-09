@@ -102,8 +102,6 @@ function createHeatmap(prec1, prec2) {
     //updateDotMap(clickedRow, clickedCol);
     //}, false);
 }
-
-
 // Example usage
 // Replace this with your actual matrices
 const prec1 = [
@@ -126,15 +124,15 @@ const prec2 = [
     [0, 0, 0.9, 0, 0, 0]
 ];
 
-createHeatmap(prec1, prec2);
+//document.getElementById('idUpButton').addEventListener('click', function() {
+//    selectedCell = Math.max(0, selectedCell - 1);  // Ensure selectedCell doesn't go below 0
+//    HeatMap();  // Assuming this is the function that draws the heatmap
+//});
 
-document.getElementById('idUpButton').addEventListener('click', function() {
-    selectedCell = Math.max(0, selectedCell - 1);  // Ensure selectedCell doesn't go below 0
-    createHeatmap(prec1, prec2);  // Assuming this is the function that draws the heatmap
-});
-
-document.getElementById('idDownButton').addEventListener('click', function() {
-    selectedCell = selectedCell + 1;  // Increment selectedCell
+//document.getElementById('idDownButton').addEventListener('click', function() {
+//    selectedCell = selectedCell + 1;  // Increment selectedCell
     // You might want to add logic to ensure selectedCell doesn't exceed the number of cells
-    createHeatMap(prec1, prec2);  // Redraw the heatmap
-});
+//    drawHeatMap();  // Redraw the heatmap
+//});
+
+createHeatmap(prec1, prec2);
