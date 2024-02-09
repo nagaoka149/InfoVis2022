@@ -50,7 +50,7 @@ let selectedCell = 0;
 function drawDotMap(data) {
   // 軸を削除
   // svg.selectAll("*").remove();
-  const indexedData = data.map((d, i) => ({ data: d, index: i }));
+  //const indexedData = data.map((d, i) => ({ data: d, index: i }));
 
   // 円を描画
   // データ点の描画
@@ -71,7 +71,7 @@ function drawDotMap(data) {
         
 
   // ツールチップの表示
-  circles.on("mouseover", (event, d) => {
+  circles.on("mouseover", (event, d, i) => {
     // ツールチップの位置を設定
     const xPosition = d[0] + 10;
     const yPosition = d[1] - 10;
@@ -81,7 +81,7 @@ function drawDotMap(data) {
       .style("left", xPosition + "px")
       .style("top", yPosition + "px")
       .select("#value")
-      .text(`${d.index}, (${d[0]}, ${d[1]})`);
+      .text(`${(d,i) => i}, (${d[0]}, ${d[1]})`);
 
     d3.select("#tooltip").classed("hidden", false);
   });
