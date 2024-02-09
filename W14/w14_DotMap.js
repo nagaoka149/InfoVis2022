@@ -82,7 +82,7 @@ function drawDotMap(data) {
       .style("top", yPosition + "px")
       .select("#value")
       .text(function(d,i){
-        i + `(${d[0]}, ${d[1]})`});
+        i + "(" +d[0] + "," + d[1]+")"});
 
     d3.select("#tooltip").classed("hidden", false);
   });
