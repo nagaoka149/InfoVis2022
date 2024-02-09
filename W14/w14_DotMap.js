@@ -70,7 +70,7 @@ function drawDotMap(data) {
         
 
   // ツールチップの表示
-  circles.on("mouseover", (event, d, i) => {
+  circles.on("mouseover", (event, d, i=0) => {
     // ツールチップの位置を設定
     const xPosition = d[0] + 10;
     const yPosition = d[1] - 10;
