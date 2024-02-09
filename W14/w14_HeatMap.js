@@ -141,15 +141,15 @@ const prec2 = [
     [0, 0, 0.9, 0, 0, 0]
 ];
 
-document.getElementById('idUpButton').addEventListener('click', function() {
-    selectedCell = Math.max(0, selectedCell - 1);  // Ensure selectedCell doesn't go below 0
-    drawHeatMap();  // Assuming this is the function that draws the heatmap
-});
+//document.getElementById('idUpButton').addEventListener('click', function() {
+//    selectedCell = Math.max(0, selectedCell - 1);  // Ensure selectedCell doesn't go below 0
+//    HeatMap();  // Assuming this is the function that draws the heatmap
+//});
 
-ocument.getElementById('idDownButton').addEventListener('click', function() {
-    selectedCell = selectedCell + 1;  // Increment selectedCell
-     //You might want to add logic to ensure selectedCell doesn't exceed the number of cells
-    drawHeatMap();  // Redraw the heatmap
-});
+//document.getElementById('idDownButton').addEventListener('click', function() {
+//    selectedCell = selectedCell + 1;  // Increment selectedCell
+    // You might want to add logic to ensure selectedCell doesn't exceed the number of cells
+//    drawHeatMap();  // Redraw the heatmap
+//});
 
 createHeatmap(prec1, prec2);
