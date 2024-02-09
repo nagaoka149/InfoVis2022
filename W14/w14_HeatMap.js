@@ -86,33 +86,23 @@ function createHeatmap(prec1, prec2) {
     ctx.fillRect(j * 10, i * 10, 10, 10);
 
     // クリックイベントリスナーを追加
-    ctx.canvas.addEventListener('click', function(event) {
-        const rect = ctx.canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        const clickedRow = Math.floor(y / 10);
-        const clickedCol = Math.floor(x / 10);
+    // ctx.canvas.addEventListener('click', function(event) {
+    //    const rect = ctx.canvas.getBoundingClientRect();
+    //    const x = event.clientX - rect.left;
+    //    const y = event.clientY - rect.top;
+    //    const clickedRow = Math.floor(y / 10);
+    //    const clickedCol = Math.floor(x / 10);
 
-    cells.on("click", function(event, d) {
-        selectedCell = (selectedCell && selectedCell.row === d.row && selectedCell.column === d.column) ? null : { row: d.row, column: d.column };
-        drawDotMap(dotMapData[currentTime]);  // Redraw the dot map with the new selection
-      });
+    //cells.on("click", function(event, d) {
+    //    selectedCell = (selectedCell && selectedCell.row === d.row && selectedCell.column === d.column) ? null : { row: d.row, column: d.column };
+    //    drawDotMap(dotMapData[currentTime]);  // Redraw the dot map with the new selection
+    //  });
 
       // w14_main.js に定義される関数を呼び出してドットマップを更新
-    updateDotMap(clickedRow, clickedCol);
-    }, false);
+    //updateDotMap(clickedRow, clickedCol);
+    //}, false);
 }
 
-document.getElementById('idUpButton').addEventListener('click', function() {
-    selectedCell = Math.max(0, selectedCell - 1);  // Ensure selectedCell doesn't go below 0
-    creaHeatmap(prec1, prec2);  // Assuming this is the function that draws the heatmap
-});
-
-document.getElementById('idDownButton').addEventListener('click', function() {
-    selectedCell = selectedCell + 1;  // Increment selectedCell
-    // You might want to add logic to ensure selectedCell doesn't exceed the number of cells
-    createHeatMap(prec1, prec2);  // Redraw the heatmap
-});
 
 // Example usage
 // Replace this with your actual matrices
@@ -137,3 +127,14 @@ const prec2 = [
 ];
 
 createHeatmap(prec1, prec2);
+
+document.getElementById('idUpButton').addEventListener('click', function() {
+    selectedCell = Math.max(0, selectedCell - 1);  // Ensure selectedCell doesn't go below 0
+    createHeatmap(prec1, prec2);  // Assuming this is the function that draws the heatmap
+});
+
+document.getElementById('idDownButton').addEventListener('click', function() {
+    selectedCell = selectedCell + 1;  // Increment selectedCell
+    // You might want to add logic to ensure selectedCell doesn't exceed the number of cells
+    createHeatMap(prec1, prec2);  // Redraw the heatmap
+});
