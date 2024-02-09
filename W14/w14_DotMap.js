@@ -44,7 +44,7 @@ const yScale = d3.scaleLinear().domain([d3.min(allYValues), d3.max(allYValues)])
 // 初期の時刻を設定
 let currentTime = 0;
 
-let selectedCell = null;  
+let selectedCell = 0;  
 
 // DotMapの描画関数
 function drawDotMap(data) {
@@ -118,15 +118,27 @@ d3.select("#nextTimeButton").on("click", () => {
   drawDotMap(dotMapData[currentTime]); // DotMapを描画
 });
 
-// down ボタンをクリックしたときの処理
+// Time Back ボタンをクリックしたときの処理
 function onDownButtonClick() {
   currentTime = (currentTime - 1 + dotMapData.length) % dotMapData.length; // 前の時刻へ
   drawDotMap(dotMapData[currentTime]); // DotMapを描画
 }
 
-// up ボタンをクリックしたときの処理
+// Time Next ボタンをクリックしたときの処理
 function onUpButtonClick() {
   currentTime = (currentTime + 1) % dotMapData.length; // 次の時刻へ
+  drawDotMap(dotMapData[currentTime]); // DotMapを描画
+}
+
+// ID Back ボタンをクリックしたときの処理
+function onIDDownButtonClick() {
+  selectedCell = (selectedCell - 1 + 6) % 6; // 前の時刻へ
+  drawDotMap(dotMapData[currentTime]); // DotMapを描画
+}
+
+// ID Next ボタンをクリックしたときの処理
+function onIDUpButtonClick() {
+  selectedCell = (selectedCell + 1) % 6; // 次の時刻へ
   drawDotMap(dotMapData[currentTime]); // DotMapを描画
 }
 
@@ -136,6 +148,8 @@ drawDotMap(dotMapData[currentTime]);
 // ボタンにイベントリスナーを追加
 document.getElementById("upButton").addEventListener("click", onUpButtonClick);
 document.getElementById("downButton").addEventListener("click", onDownButtonClick);
+document.getElementById("idUpButton").addEventListener("click", onIDUpButtonClick);
+document.getElementById("idDownButton").addEventListener("click", onIDDownButtonClick);
 
 // ツールチップを格納するdiv要素を作成
 d3.select("#dotmap-container")
