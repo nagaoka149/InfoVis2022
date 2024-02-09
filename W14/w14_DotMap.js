@@ -50,6 +50,7 @@ let selectedCell = 0;
 function drawDotMap(data) {
   // 軸を削除
   // svg.selectAll("*").remove();
+  const indexedData = data.map((d, i) => ({ data: d, index: i }));
 
   // 円を描画
   // データ点の描画
