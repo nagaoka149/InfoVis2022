@@ -61,7 +61,8 @@ function drawDotMap(data) {
         .attr("r", 5)
         //.attr("fill", "steelblue");
         .attr("fill", (d, i) => {
-          if (selectedCell && selectedCell.row === Math.floor(i / 6) && selectedCell.column === i % 6) {
+          if(selectedCell === i){
+          //if (selectedCell && selectedCell.row === Math.floor(i / 6) && selectedCell.column === i % 6) {
               return "red";  // Change to red if the dot corresponds to the selected cell
           }
           return "steelblue";  // Default color
