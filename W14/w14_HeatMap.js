@@ -102,6 +102,11 @@ function createHeatmap(prec1, prec2) {
     //updateDotMap(clickedRow, clickedCol);
     //}, false);
 }
+
+function drawHeatmap(){
+    createHeatmap(prec1, prec2)
+}
+
 // Example usage
 // Replace this with your actual matrices
 const prec1 = [

@@ -134,7 +134,7 @@ function onUpButtonClick() {
 function onIDDownButtonClick() {
   selectedCell = (selectedCell - 1 + 6) % 6; // 前の時刻へ
   drawDotMap(dotMapData[currentTime]); // DotMapを描画
-  createHeatmap(prec1, prec2);
+  drawHeatmap();
 }
 
 
@@ -142,7 +142,7 @@ function onIDDownButtonClick() {
 function onIDUpButtonClick() {
   selectedCell = (selectedCell + 1) % 6; // 次の時刻へ
   drawDotMap(dotMapData[currentTime]); // DotMapを描画
-  createHeatmap(prec1, prec2);
+  drawHeatmap();
 }
 
 // 初回描画
