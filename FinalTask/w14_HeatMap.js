@@ -77,13 +77,38 @@ function createHeatmap(prec1, prec2) {
         for (let j = 0; j < mergedColors[i].length; j++) {
             const [r, g, b, a] = mergedColors[i][j];
             ctx.fillStyle = `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a})`;
-            ctx.fillRect(j * 10, i * 10, 10, 10);
+            ctx.fillRect(j * 10, i * 10, 10, 10);// ...セルを描画する既存のコード...
+            if (i === selectedCell.row && j === selectedCell.column) {
+                ctx.strokeStyle = "black";
+                ctx.lineWidth = 2;
+                ctx.strokeRect(j * 10, i * 10, 10, 10);
+            }
         }
     }
+    //for (let i = 0; i < mergedColors.length; i++) {
+    //    for (let j = 0; j < mergedColors[i].length; j++) {
+    //        const [r, g, b, a] = mergedColors[i][j];
+    //        ctx.fillStyle = `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a})`;
+    //        ctx.fillRect(j * 10, i * 10, 10, 10);
+    //    }
+    //}
 
     // セル描画部分にクリックイベントを追加
     ctx.fillStyle = `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a})`;
     ctx.fillRect(j * 10, i * 10, 10, 10);
+
+    // 黒枠を表示する処理
+    for (let i = 0; i < headers.length; i++) {
+        for (let j = 0; j < headers.length; j++) {
+            if (i === selectedCell || j === selectedCell) {
+                // 枠線の色を設定
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 1;  // 枠線の太さ
+                // 枠線を描画
+                ctx.strokeRect(j * cellSize, i * cellSize, cellSize, cellSize);
+            }
+        }
+    }
 
     // クリックイベントリスナーを追加
     // ctx.canvas.addEventListener('click', function(event) {

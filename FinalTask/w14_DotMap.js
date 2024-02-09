@@ -4,8 +4,8 @@
 let dotMapData = [
     [[10, 10], [25, 20], [30, 35], [10, 40], [60, 20], [50, 35], ],
     [[0, 10], [25, 25], [40, 40], [10, 35], [50, 25], [45, 40], ],
-    [[0, 0], [20, 20], [40, 40], [15, 30], [40, 25], [40, 40], ],
-    [[10, 0], [20, 15], [45, 35], [15, 40], [35, 30], [45, 35], ],
+    [[0, 0], [20, 20], [40, 40], [15, 30], [40, 25], [50, 40], ],
+    [[10, 0], [20, 15], [45, 35], [15, 40], [35, 30], [45, 40], ],
     [[15, 5], [25, 10], [45, 30], [10, 35], [40, 30], [50, 35], ],
     [[20, 10], [25, 15], [50, 20], [15, 35], [35, 35], [55, 30], ],
     [[25, 10], [20, 15], [50, 20], [10, 40], [30, 35], [55, 35], ],
@@ -50,6 +50,7 @@ let selectedCell = 0;
 function drawDotMap(data) {
   // 軸を削除
   // svg.selectAll("*").remove();
+  //const indexedData = data.map((d, i) => ({ data: d, index: i }));
 
   // 円を描画
   // データ点の描画
@@ -61,7 +62,8 @@ function drawDotMap(data) {
         .attr("r", 5)
         //.attr("fill", "steelblue");
         .attr("fill", (d, i) => {
-          if (selectedCell && selectedCell.row === Math.floor(i / 6) && selectedCell.column === i % 6) {
+          if(selectedCell === i){
+          //if (selectedCell && selectedCell.row === Math.floor(i / 6) && selectedCell.column === i % 6) {
               return "red";  // Change to red if the dot corresponds to the selected cell
           }
           return "steelblue";  // Default color
@@ -69,7 +71,7 @@ function drawDotMap(data) {
         
 
   // ツールチップの表示
-  circles.on("mouseover", (event, d) => {
+  circles.on("mouseover", (event, d, i) => {
     // ツールチップの位置を設定
     const xPosition = d[0] + 10;
     const yPosition = d[1] - 10;
