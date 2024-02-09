@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- w14_index.html-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeatMap and DotMap Visualization</title>
+</head>
+<body>
+    <h2>HeatMap and DotMap Visualization 02</h2>
+    <div id="heatmap-container"></div>
+    <div id="dotmap-container"></div>
+    <button id="downButton">Time Back</button>
+    <button id="upButton">Time Next</button>
+    <button id="idDownButton">ID Back</button>
+    <button id="idUpButton">ID Next</button>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script type="module" src="w14_HeatMap.js"></script>
+    <script type="module" src="w14_DotMap.js"></script>
+    <script src="w14_main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("upButton").addEventListener("click", onUpButtonClick);
+            document.getElementById("downButton").addEventListener("click", onDownButtonClick);
+            ocument.getElementById("idUpButton").addEventListener("click", onIDUpButtonClick);
+            document.getElementById("idDownButton").addEventListener("click", onIDDownButtonClick);
+        });
+    </script>
+</body>
+</html>
