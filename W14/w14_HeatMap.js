@@ -1,5 +1,7 @@
 // w14_HeatMap.js
 
+let selectedCell = 0;
+
 // Function to create a gradient colormap
 function createGradientColormap(color) {
     return [
@@ -78,6 +80,7 @@ function createHeatmap(prec1, prec2) {
             ctx.fillRect(j * 10, i * 10, 10, 10);
         }
     }
+
     // セル描画部分にクリックイベントを追加
     ctx.fillStyle = `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a})`;
     ctx.fillRect(j * 10, i * 10, 10, 10);
@@ -97,10 +100,8 @@ function createHeatmap(prec1, prec2) {
 
       // w14_main.js に定義される関数を呼び出してドットマップを更新
     updateDotMap(clickedRow, clickedCol);
-    }, false);    
+    }, false);
 }
-
-
 
 // Example usage
 // Replace this with your actual matrices
@@ -125,4 +126,3 @@ const prec2 = [
 ];
 
 createHeatmap(prec1, prec2);
-
