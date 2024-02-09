@@ -105,13 +105,13 @@ function createHeatmap(prec1, prec2) {
 
 document.getElementById('idUpButton').addEventListener('click', function() {
     selectedCell = Math.max(0, selectedCell - 1);  // Ensure selectedCell doesn't go below 0
-    createHeatmap();  // Assuming this is the function that draws the heatmap
+    drawHeatmap();  // Assuming this is the function that draws the heatmap
 });
 
 document.getElementById('idDownButton').addEventListener('click', function() {
     selectedCell = selectedCell + 1;  // Increment selectedCell
     // You might want to add logic to ensure selectedCell doesn't exceed the number of cells
-    createHeatmap();  // Redraw the heatmap
+    drawHeatMap();  // Redraw the heatmap
 });
 
 // Example usage
