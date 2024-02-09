@@ -154,7 +154,7 @@ document.getElementById("idDownButton").addEventListener("click", onIDDownButton
 // ツールチップを格納するdiv要素を作成
 d3.select("#dotmap-container")
   .append("div")
-  .attr("id", "tooltip")  // ここを修正
+  .attr("id", "tooltip") 
   .attr("class", "hidden")
   .append("p")
   .attr("id", "value");
