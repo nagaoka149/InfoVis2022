@@ -70,7 +70,7 @@ function drawDotMap(data) {
         
 
   // ツールチップの表示
-  circles.on("mouseover", (event, d) => {
+  circles.on("mouseover", (event, d, i) => {
     // ツールチップの位置を設定
     const xPosition = d[0] + 10;
     const yPosition = d[1] - 10;
@@ -80,7 +80,7 @@ function drawDotMap(data) {
       .style("left", xPosition + "px")
       .style("top", yPosition + "px")
       .select("#value")
-      .text(`ID: ${i}, (${d[0]}, ${d[1]})`);
+      .text(`${i}, (${d[0]}, ${d[1]})`);
 
     d3.select("#tooltip").classed("hidden", false);
   });
