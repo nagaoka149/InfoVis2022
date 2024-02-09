@@ -43,3 +43,30 @@ function updateDotMapBasedOnHeatmap(selectedCell) {
     // Logic to find and update the corresponding dot in the dotmap
     // This might involve changing the dot's color and updating the heatmap to highlight the selected cell
 }
+
+// Time Back ボタンをクリックしたときの処理
+function onDownButtonClick() {
+    currentTime = (currentTime - 1 + dotMapData.length) % dotMapData.length; // 前の時刻へ
+    drawDotMap(dotMapData[currentTime]); // DotMapを描画
+  }
+  
+  // Time Next ボタンをクリックしたときの処理
+  function onUpButtonClick() {
+    currentTime = (currentTime + 1) % dotMapData.length; // 次の時刻へ
+    drawDotMap(dotMapData[currentTime]); // DotMapを描画
+  }
+  
+  // ID Back ボタンをクリックしたときの処理
+  function onIDDownButtonClick() {
+    selectedCell = (selectedCell - 1 + 6) % 6; // 前の時刻へ
+    drawDotMap(dotMapData[currentTime]); // DotMapを描画
+    //drawHeatmap();
+  }
+  
+  
+  // ID Next ボタンをクリックしたときの処理
+  function onIDUpButtonClick() {
+    selectedCell = (selectedCell + 1) % 6; // 次の時刻へ
+    drawDotMap(dotMapData[currentTime]); // DotMapを描画
+    //drawHeatmap();
+  }
