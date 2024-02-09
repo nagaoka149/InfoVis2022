@@ -113,10 +113,10 @@ svg.append("g")
 drawDotMap(dotMapData[currentTime]);
 
 // 時刻変更ボタンのクリックイベント
-d3.select("#nextTimeButton").on("click", () => {
-  currentTime = (currentTime + 1) % dotMapData.length; // 次の時刻へ
-  drawDotMap(dotMapData[currentTime]); // DotMapを描画
-});
+//d3.select("#nextTimeButton").on("click", () => {
+//  currentTime = (currentTime + 1) % dotMapData.length; // 次の時刻へ
+//  drawDotMap(dotMapData[currentTime]); // DotMapを描画
+//});
 
 // Time Back ボタンをクリックしたときの処理
 function onDownButtonClick() {
@@ -136,6 +136,7 @@ function onIDDownButtonClick() {
   drawDotMap(dotMapData[currentTime]); // DotMapを描画
   createHeatmap(prec1, prec2);
 }
+
 
 // ID Next ボタンをクリックしたときの処理
 function onIDUpButtonClick() {
